@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-// Statische Dateien bereitstellen
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routen
@@ -34,7 +34,7 @@ app.delete('/data', (req, res) => {
   res.json({ message: 'DELETE request to /data' });
 });
 
-// Middleware zum Loggen von Anfragedetails
+
 app.use((req, res, next) => {
   console.log(`HTTP Method: ${req.method}`);
   console.log(`Path: ${req.path}`);
@@ -43,13 +43,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Zentrale Fehlerbehandlungsmiddleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
 
-// 404-Handler
+
 app.use((req, res) => {
   res.status(404).send('Page not found');
 });
